@@ -21,7 +21,7 @@ class ExchangeRateApi {
 
   Future<List<Country>> getNationalName() async {
     await Future.delayed(const Duration(seconds: 1));
-    String jsonString = data; //currencyCodeJson.dart
+    String jsonString = data;
 
     Iterable json = jsonDecode(jsonString);
     return json.map((e) => Country.fromJson(e)).toList();
