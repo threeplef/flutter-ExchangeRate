@@ -3,6 +3,7 @@ import 'package:exchange_rate/view_model/exchange_rate_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class ExchangeRateScreen extends StatefulWidget {
   const ExchangeRateScreen({Key? key}) : super(key: key);
 
@@ -14,6 +15,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
   final _textController = TextEditingController();
 
   final _debounce = Debounce(milliseconds: 500);
+
 
   @override
   void dispose() {
@@ -27,7 +29,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('환율 정보 앱')),
+        title: const Text("환율조회"),
       ),
       body: Column(
         children: [

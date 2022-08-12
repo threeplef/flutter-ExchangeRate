@@ -756,6 +756,12 @@ String data = """[
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Saint_Helena.svg/23px-Flag_of_Saint_Helena.svg.png"
   },
   {
+    "currencyCode": "SLL",
+    "currencyName": "Sierra Leonean Leone",
+    "country": "Sierra Leone",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Flag_of_Sierra_Leone.svg/23px-Flag_of_Sierra_Leone.svg.png"
+  },
+  {
     "currencyCode": "SLE",
     "currencyName": "Sierra Leonean Leone",
     "country": "Sierra Leone",

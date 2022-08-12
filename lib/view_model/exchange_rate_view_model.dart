@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class ExchangeRateViewModel extends ChangeNotifier {
   final _exchangeRateApi = ExchangeRateApi();
-
   Map<String, dynamic> conversionRates = {};
   List<String> rates = [];
   List<Country> countries = [];
@@ -17,14 +16,14 @@ class ExchangeRateViewModel extends ChangeNotifier {
   }
 
   String findCountryName(String query) {
-    String countryName = '';
+    String findCountry = '';
     countries
         .where((e) => e.currencyCode == query)
         .toList()
         .forEach((e) {
-      countryName = e.country;
+      findCountry = e.country;
     });
-    return countryName;
+    return findCountry;
   }
 
   String findImageUrl(String query) {
