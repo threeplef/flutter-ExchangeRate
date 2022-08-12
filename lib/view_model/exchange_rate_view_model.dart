@@ -19,10 +19,10 @@ class ExchangeRateViewModel extends ChangeNotifier {
   String findCountryName(String query) {
     String countryName = '';
     countries
-        .where((element) => element.currencyCode == query)
+        .where((e) => e.currencyCode == query)
         .toList()
-        .forEach((element) {
-      countryName = element.country;
+        .forEach((e) {
+      countryName = e.country;
     });
     return countryName;
   }
@@ -30,10 +30,10 @@ class ExchangeRateViewModel extends ChangeNotifier {
   String findImageUrl(String query) {
     String imageUrl = '';
     countries
-        .where((element) => element.currencyCode == query)
+        .where((e) => e.currencyCode == query)
         .toList()
-        .forEach((element) {
-      imageUrl = element.imageUrl;
+        .forEach((e) {
+      imageUrl = e.imageUrl;
     });
     return imageUrl;
   }
