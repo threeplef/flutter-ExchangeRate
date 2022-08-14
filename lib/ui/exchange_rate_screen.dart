@@ -29,143 +29,178 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("환율조회"),
+        title: const Center(child: Text('Exchange Rate')),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 15, 5, 10),
-            child: TextField(
-              controller: _textController,
-              onChanged: _debounce.run(() => setState(() {
-                viewModel.fetchConversionRates(_textController.text);
-              })),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: Theme.of(context).colorScheme.primary,
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                child: TextField(
+                  controller: _textController,
+                  onChanged: _debounce.run(() => setState(() {
+                        viewModel.fetchConversionRates(_textController.text);
+                      })),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(
+                          width: 2,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    hintText: '🔍 Search',
+                    hintStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                    contentPadding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surfaceVariant,
                   ),
                 ),
-                hintText: '검색',
-                hintStyle: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold),
-                contentPadding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surfaceVariant,
               ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                flex: 2,
-                fit: FlexFit.tight,
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  height: 40,
-                  color: Colors.blue,
-                  child: const Text("국가명"),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Colors.blue, width: 2.0),
+                          bottom: BorderSide(color: Colors.blue, width: 2.0),
+                          right:
+                              BorderSide(color: Colors.blueAccent, width: 2.0),
+                        ),
+                      ),
+                      child: const Center(
+                          child: Text('Country Name',
+                              style: TextStyle(fontSize: 15))),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Colors.blue, width: 2.0),
+                          bottom: BorderSide(color: Colors.blue, width: 2.0),
+                          right:
+                              BorderSide(color: Colors.blueAccent, width: 2.0),
+                        ),
+                      ),
+                      child: const Text('Currency',
+                          style: TextStyle(fontSize: 15)),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Colors.blue, width: 2.0),
+                          bottom: BorderSide(color: Colors.blue, width: 2.0),
+                        ),
+                      ),
+                      child: const Text('Rate',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
               ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 40,
-                  color: Colors.red,
-                  child: const Text("통화"),
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 40,
-                  color: Colors.amber,
-                  child: const Text("환산율"),
+              Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: viewModel.rates.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      children: [
+                        Flexible(
+                          flex: 2,
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                right:
+                                    BorderSide(color: Colors.blue, width: 2.0),
+                              ),
+                            ),
+                            height: 50,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(width: 10),
+                                Image.network(
+                                    viewModel
+                                        .findImageUrl(viewModel.rates[index]),
+                                    width: 30,
+                                    height: 20,
+                                    fit: BoxFit.cover),
+                                const SizedBox(width: 7),
+                                Expanded(
+                                  child: Text(
+                                    viewModel.findCountryName(
+                                        viewModel.rates[index]),
+                                    overflow: TextOverflow.fade,
+                                    softWrap: true,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                right:
+                                    BorderSide(color: Colors.blue, width: 2.0),
+                              ),
+                            ),
+                            child: Text(viewModel.rates[index]),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            color: Colors.amberAccent,
+                            child: Text(viewModel
+                                .conversionRates[viewModel.rates[index]]
+                                .toStringAsFixed(1)),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],
           ),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: viewModel.rates.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    //국가명
-                    Flexible(
-                      flex: 2,
-                      fit: FlexFit.tight,
-                      child: Container(
-                        alignment: Alignment.center,
-                        color: Colors.blue,
-                        height: 40,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              viewModel
-                                  .findImageUrl(viewModel.rates[index]),
-                              width: 30,
-                              height: 20,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: Text(
-                                viewModel.findCountryName(
-                                    viewModel.rates[index]),
-                                overflow: TextOverflow.fade,
-                                softWrap: true,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    //통화코드
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.tight,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 40,
-                        color: Colors.red,
-                        child: Text(viewModel.rates[index]),
-                      ),
-                    ),
-                    //미화 환산율
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.tight,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 40,
-                        color: Colors.amber,
-                        child: Text(viewModel
-                            .conversionRates[viewModel.rates[index]]
-                            .toString()),
-                      ),
-                    ),
-                  ],
-                );
-              },
+          Positioned(
+            top: 136,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Colors.pinkAccent),
+              ),
             ),
           ),
         ],
