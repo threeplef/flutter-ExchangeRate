@@ -1,5 +1,5 @@
-import 'package:exchange_rate/api/exchange_rate_api.dart';
-import 'package:exchange_rate/model/country.dart';
+import 'package:exchange_rate/data/model/country.dart';
+import 'package:exchange_rate/data/source/exchange_rate_api.dart';
 import 'package:flutter/material.dart';
 
 class ExchangeRateViewModel extends ChangeNotifier {

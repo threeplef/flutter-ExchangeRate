@@ -1,5 +1,5 @@
 import 'package:exchange_rate/debounce.dart';
-import 'package:exchange_rate/view_model/exchange_rate_view_model.dart';
+import 'package:exchange_rate/ui/exchange_rate_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
